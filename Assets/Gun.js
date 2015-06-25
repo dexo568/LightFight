@@ -10,5 +10,5 @@
    
    function Update () {
        // Fire if the left mouse button is clicked 
-           Fire();
+           //Fire();
    }
