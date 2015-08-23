@@ -43,6 +43,8 @@ function LateUpdate () {
 			section.upDir = transform.TransformDirection(Vector3.up);
 		section.time = now;
 		sections.Unshift(section);
+		
+		
 	}
 	
 	// Rebuild the mesh
