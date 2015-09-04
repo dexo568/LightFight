@@ -10,6 +10,7 @@ public class PlanePilot : MonoBehaviour {
 	private Vector3 lastCheckpoint;
 	private Quaternion lastCheckpointRotation;
 	private bool isFirstPerson = true;
+	private int boxCount = 0;
 	// Use this for initialization
 	void Start () {
 		player1stCamera.enabled=true;
@@ -22,6 +23,9 @@ public class PlanePilot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (boxCount > 5) {
+			boxCount = 0;
+		}
 		//Collision checks
 		if (Physics.CheckSphere(transform.position+(transform.forward*2.0f), .1f)){
 			Collider[] hitColliders = Physics.OverlapSphere(transform.position+transform.forward*2.0f, .1f);
@@ -96,16 +100,25 @@ public class PlanePilot : MonoBehaviour {
 
 		//Ribbon Collider Generation
 		// TODO
-		GameObject colliderSection = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		colliderSection.name = playerNum+"Ribbon";
-		colliderSection.transform.position = this.transform.position;
-		colliderSection.transform.localScale = new Vector3(1.9f,.01f,1f);
-		colliderSection.transform.localRotation = this.transform.localRotation;
-		colliderSection.transform.up = transform.TransformDirection(Vector3.up);
-		colliderSection.GetComponent<MeshRenderer>().enabled = false;
+		if(boxCount==0){
+			Debug.Log ("The global rotation eulers " + this.transform.rotation.eulerAngles.ToString());
+			Debug.Log ("The local rotation eulers " + this.transform.localRotation.eulerAngles.ToString());
+			GameObject colliderSection = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			colliderSection.name = playerNum+"Ribbon";
+			colliderSection.transform.position = this.transform.position;
+			colliderSection.transform.localScale = new Vector3(2.0f,.1f,1f);
+			colliderSection.transform.rotation.eulerAngles.Set(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y,this.transform.rotation.eulerAngles.z);
+			//colliderSection.transform.localRotation = this.transform.localRotation;
+			colliderSection.transform.up = transform.TransformDirection(Vector3.up);
+			//colliderSection.GetComponent<MeshRenderer>().enabled = false;
+		}
+
+
 		if (Input.GetButtonDown("Fire"+playerNum)){
 				fire();
 		}
+		boxCount += 1;
+	
 	}
 	void fire() {
 		Rigidbody bullet = (Rigidbody) Instantiate(playerBullet, (transform.position+transform.forward*5), transform.rotation);
