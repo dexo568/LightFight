@@ -15,10 +15,11 @@ public class PlanePilot : MonoBehaviour {
 	void Start () {
 		player1stCamera.enabled=true;
 		player3rdCamera.enabled=false;
+		Screen.lockCursor = true;
 		lastCheckpoint = transform.position;
 		lastCheckpointRotation = transform.rotation;
 		player3rdCamera.transform.position = transform.position - transform.forward;
-		Debug.Log("PlanePilot script added to " + gameObject.name);
+		//Debug.Log("PlanePilot script added to " + gameObject.name);
 	}
 	
 	// Update is called once per frame
@@ -27,8 +28,8 @@ public class PlanePilot : MonoBehaviour {
 			boxCount = 0;
 		}
 		//Collision checks
-		if (Physics.CheckSphere(transform.position+(transform.forward*2.0f), .1f)){
-			Collider[] hitColliders = Physics.OverlapSphere(transform.position+transform.forward*2.0f, .1f);
+		if (Physics.CheckSphere(transform.position+(transform.forward*2.0f), 1f)){
+			Collider[] hitColliders = Physics.OverlapSphere(transform.position+transform.forward*2, 1f);
 			for(int i = 0; i < hitColliders.Length; i++){
 				Collider curCollider = hitColliders[i];
 				GameObject colliderParent = curCollider.gameObject;
@@ -110,7 +111,7 @@ public class PlanePilot : MonoBehaviour {
 			colliderSection.transform.rotation.eulerAngles.Set(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y,this.transform.rotation.eulerAngles.z);
 			//colliderSection.transform.localRotation = this.transform.localRotation;
 			colliderSection.transform.up = transform.TransformDirection(Vector3.up);
-			//colliderSection.GetComponent<MeshRenderer>().enabled = false;
+			colliderSection.GetComponent<MeshRenderer>().enabled = false;
 		}
 
 
