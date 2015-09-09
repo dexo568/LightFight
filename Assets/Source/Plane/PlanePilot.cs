@@ -6,7 +6,7 @@ public class PlanePilot : MonoBehaviour {
 	public Camera player3rdCamera;
 	public Camera player1stCamera;
 	public Rigidbody playerBullet;
-	public float speed = 10.0f;
+	public float speed = 0f;//10.0f;
 	private Vector3 lastCheckpoint;
 	private Quaternion lastCheckpointRotation;
 	private bool isFirstPerson = true;
@@ -39,7 +39,7 @@ public class PlanePilot : MonoBehaviour {
 					lastCheckpoint = colliderParent.transform.position;
 					lastCheckpointRotation = colliderParent.transform.rotation;
 				}else if (!colliderParent.name.StartsWith(""+playerNum)){
-					Debug.Log (gameObject.name + " collided with " +colliderParent.name);
+					//Debug.Log (gameObject.name + " collided with " +colliderParent.name);
 					transform.position = lastCheckpoint;
 					transform.rotation = lastCheckpointRotation;
 					player3rdCamera.transform.position = transform.position - transform.forward;
@@ -67,9 +67,9 @@ public class PlanePilot : MonoBehaviour {
 		//Plane Control
 		transform.Rotate(-5.0f*Input.GetAxis("Vertical"+playerNum),0.0f, -5.0f*Input.GetAxis("Horizontal"+playerNum));
 		if(Input.GetButton("Boost"+playerNum)){
-			speed = 20.0f;
+			speed = 0f;//20.0f;
 		}else{
-			speed = 10.0f;
+			speed = 0f;//10.0f;
 		}
 		transform.position+=transform.forward*Time.deltaTime*speed;
 
@@ -102,8 +102,8 @@ public class PlanePilot : MonoBehaviour {
 		//Ribbon Collider Generation
 		// TODO
 		if(boxCount==0){
-			Debug.Log ("The global rotation eulers " + this.transform.rotation.eulerAngles.ToString());
-			Debug.Log ("The local rotation eulers " + this.transform.localRotation.eulerAngles.ToString());
+			//Debug.Log ("The global rotation eulers " + this.transform.rotation.eulerAngles.ToString());
+			//Debug.Log ("The local rotation eulers " + this.transform.localRotation.eulerAngles.ToString());
 			GameObject colliderSection = GameObject.CreatePrimitive(PrimitiveType.Cube);
 			colliderSection.name = playerNum+"Ribbon";
 			colliderSection.transform.position = this.transform.position;
