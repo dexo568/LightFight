@@ -6,7 +6,7 @@ public class PlanePilot : MonoBehaviour {
 	public Camera player3rdCamera;
 	public Camera player1stCamera;
 	public Rigidbody playerBullet;
-	public float speed = 0f;//10.0f;
+	public float speed = 10.0f;//10.0f;
 	private Vector3 lastCheckpoint;
 	private Quaternion lastCheckpointRotation;
 	private bool isFirstPerson = true;
@@ -67,9 +67,9 @@ public class PlanePilot : MonoBehaviour {
 		//Plane Control
 		transform.Rotate(-5.0f*Input.GetAxis("Vertical"+playerNum),0.0f, -5.0f*Input.GetAxis("Horizontal"+playerNum));
 		if(Input.GetButton("Boost"+playerNum)){
-			speed = 0f;//20.0f;
+			speed = 10.0f;//20.0f;
 		}else{
-			speed = 0f;//10.0f;
+			speed = 20.0f;//10.0f;
 		}
 		transform.position+=transform.forward*Time.deltaTime*speed;
 

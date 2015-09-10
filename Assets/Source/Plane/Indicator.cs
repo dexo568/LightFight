@@ -34,60 +34,66 @@ public class Indicator : MonoBehaviour {
 		float cameraXMinInScreenPixels = (cameraXMin * Screen.width) - (Screen.width * HALF);
 		float cameraXMaxInScreenPixels = (cameraXMax * Screen.width) - (Screen.width * HALF);
 
-		// Target is behind us 
+
+		//TODO screenX is improperly scaled in single-player.
+		screenX = (reference.WorldToViewportPoint(targetPosition).x * reference.pixelWidth)
+			+ (cameraXMax * Screen.width) - Screen.width; 
+		screenY = (reference.WorldToViewportPoint(targetPosition).y * reference.pixelHeight) 
+			- (reference.pixelHeight * HALF);
+
+
 		if (direction <= 0) {
-			Vector3 viewPortTarget = reference.WorldToViewportPoint(targetPosition);
-			float targetX = viewPortTarget.x; // as percentage of current camera
-			float targetY = viewPortTarget.y; // as percentage of current camera
+			// Target is behind us
 
-			// X,Y is being projected to the wrong side for some reason
-			float flippedTargetX = targetX - (2.0f * (HALF - targetX)); 
-			float flippedTargetY = targetY - (2.0f * (HALF - targetY)); 
-
-			// Test used to snap the indicator to the edge it's closer to
-			float targetToHorzEdge = Mathf.Min(1.0f - flippedTargetY, flippedTargetY);
-			float targetToVertEdge = Mathf.Min(1.0f - flippedTargetX, flippedTargetX);
-
-			// New indicator screen positions and snap axis it's closer to
-			if (targetToVertEdge <= targetToHorzEdge) {
-				// Closer to Verticle edges of screen, Snap x
-				screenX = Mathf.Round(flippedTargetX) * reference.pixelWidth;
-				screenY = flippedTargetY * reference.pixelHeight;
-			} else {
-				// Closer to horizontal edges of screen, Snap y
-				screenX = flippedTargetX * reference.pixelWidth;
-				screenY = Mathf.Round(flippedTargetY) * reference.pixelHeight;
+			//The below is more or less demon-code. Will try to comment it at some point.
+			float cameraXCenterInScreenCoords = ((1.25f * cameraXMax) * Screen.width) - Screen.width;
+			float xDistanceFromCenter = screenX - cameraXCenterInScreenCoords;
+			screenX = cameraXCenterInScreenCoords - xDistanceFromCenter;
+			if(Mathf.Abs(xDistanceFromCenter) > Mathf.Abs(screenY)){ //it's more to the left or right than up or down
+				if(screenX < cameraXCenterInScreenCoords){
+					screenX = cameraXMinInScreenPixels + indicatorX;
+				}else{
+					screenX = cameraXMaxInScreenPixels - indicatorX;
+				}
+				if (screenY < indicatorY - reference.pixelHeight * HALF) {
+					screenY = indicatorY - reference.pixelHeight * HALF;
+				} else if (screenY > reference.pixelHeight * HALF - indicatorY) {
+					screenY = reference.pixelHeight * HALF - indicatorY;
+				}
+			}else{ //it's more to the top or bottom
+				if(screenY <= 0){
+					screenY = screenY = reference.pixelHeight * HALF - indicatorY;
+				}else{
+					screenY = indicatorY - reference.pixelHeight * HALF;
+				}
+				if (screenX < cameraXMinInScreenPixels + indicatorX) {
+					screenX = cameraXMinInScreenPixels + indicatorX;
+				} else if (screenX > cameraXMaxInScreenPixels - indicatorX) {
+					screenX = cameraXMaxInScreenPixels - indicatorX;
+				}
 			}
-
-			screenX += (cameraXMax * Screen.width) - Screen.width;
-			screenY -= (reference.pixelHeight * HALF);
-
 		} else {
-			// Target is in front of us	   
-	
+			// Target is in front of us
+			if (screenX < cameraXMinInScreenPixels + indicatorX) {
+				screenX = cameraXMinInScreenPixels + indicatorX;
+			} else if (screenX > cameraXMaxInScreenPixels - indicatorX) {
+				screenX = cameraXMaxInScreenPixels - indicatorX;
+			}
+			
+			// Checks if we're player 1 or player 2. Repositions y as necesary
+			if (screenY < indicatorY - reference.pixelHeight * HALF) {
+				screenY = indicatorY - reference.pixelHeight * HALF;
+			} else if (screenY > reference.pixelHeight * HALF - indicatorY) {
+				screenY = reference.pixelHeight * HALF - indicatorY;
+			}
 			// pixelWidth converts from viewport to screen space FIXME is this right???
 			// Viewport is a percentage. reference.pixelWidth is width of one camera in pixels
 			// Convert camera's max screen percentage to screen pixels, 
 			// and then transform it over bc screen's origin is in the center/middle of the screen
-			screenX = (reference.WorldToViewportPoint(targetPosition).x * reference.pixelWidth) 
-						+ (cameraXMax * Screen.width) - Screen.width; 
-			screenY = (reference.WorldToViewportPoint(targetPosition).y * reference.pixelHeight) 
-						- (reference.pixelHeight * HALF);
 		}
 
 		// Checks if we're player 1 or player 2. Repositions x as necesary
-		if (screenX < cameraXMinInScreenPixels + indicatorX) {
-			screenX = cameraXMinInScreenPixels + indicatorX;
-		} else if (screenX > cameraXMaxInScreenPixels - indicatorX) {
-			screenX = cameraXMaxInScreenPixels - indicatorX;
-		}
 
-		// Checks if we're player 1 or player 2. Repositions y as necesary
-		if (screenY < indicatorY - reference.pixelHeight * HALF) {
-			screenY = indicatorY - reference.pixelHeight * HALF;
-		} else if (screenY > reference.pixelHeight * HALF - indicatorY) {
-			screenY = reference.pixelHeight * HALF - indicatorY;
-		}
 
 		// Update the indicator's position
 		indicator.anchoredPosition = new Vector2(screenX, screenY);
