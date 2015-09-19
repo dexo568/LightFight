@@ -5,6 +5,7 @@ public class PlanePilot : MonoBehaviour {
 	public int playerNum;
 	public Camera player3rdCamera;
 	public Camera player1stCamera;
+	public Indicator checkpointIndicator1stPerson;
 	public Rigidbody playerBullet;
 	public float speed = 10.0f;//10.0f;
 	private Vector3 lastCheckpoint;
@@ -36,6 +37,7 @@ public class PlanePilot : MonoBehaviour {
 				if (colliderParent.name.StartsWith("Checkpoint")){
 					CheckpointUpdater checkpoint = colliderParent.GetComponent<CheckpointUpdater>();
 					checkpoint.advanceCheckpoint();
+					checkpointIndicator1stPerson.tracked = checkpoint.nextCheckpoint;
 					lastCheckpoint = colliderParent.transform.position;
 					lastCheckpointRotation = colliderParent.transform.rotation;
 				}else if (!colliderParent.name.StartsWith(""+playerNum)){
