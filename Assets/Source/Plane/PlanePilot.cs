@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlanePilot : MonoBehaviour {
@@ -7,11 +8,14 @@ public class PlanePilot : MonoBehaviour {
 	public Camera player1stCamera;
 	public Indicator checkpointIndicator1stPerson;
 	public Rigidbody playerBullet;
-	public float speed = 10.0f;//10.0f;
+	public float speed = 30.0f;//10.0f;
+	private int boost = 100;
+	public Text boostGauge;
 	private Vector3 lastCheckpoint;
 	private Quaternion lastCheckpointRotation;
 	private bool isFirstPerson = true;
 	private int boxCount = 0;
+	private int boostCount = 0;
 	// Use this for initialization
 	void Start () {
 		player1stCamera.enabled=true;
@@ -25,28 +29,51 @@ public class PlanePilot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//Update booster
+		boostGauge.text = "Boost: " + boost + "%";
+		if(boostCount > 10) {
+			boostCount = 0;
+			boost++;
+			boost = Mathf.Min(100, boost);
+		}
+		boostCount++;
+		//Update Will's mysterious box code
 		if (boxCount > 5) {
 			boxCount = 0;
 		}
 		//Collision checks
-		if (Physics.CheckSphere(transform.position+(transform.forward*2.0f), 1f)){
-			Collider[] hitColliders = Physics.OverlapSphere(transform.position+transform.forward*2, 1f);
-			for(int i = 0; i < hitColliders.Length; i++){
-				Collider curCollider = hitColliders[i];
-				GameObject colliderParent = curCollider.gameObject;
-				if (colliderParent.name.StartsWith("Checkpoint")){
+		Collider[] hitColliders = Physics.OverlapSphere(transform.position+transform.forward*2, 1f);
+		for(int i = 0; i < hitColliders.Length; i++){
+			Collider curCollider = hitColliders[i];
+			GameObject colliderParent = curCollider.gameObject;
+			if (colliderParent.name.StartsWith("Checkpoint")){
+				if(colliderParent.layer == playerNum+10){ //Checks that the checkpoint is this player's checkpoint -- eg. p1 has checkpoints in layer 11
+					boost+=10;
+					boost = Mathf.Min(100, boost);
 					CheckpointUpdater checkpoint = colliderParent.GetComponent<CheckpointUpdater>();
 					checkpoint.advanceCheckpoint();
 					checkpointIndicator1stPerson.tracked = checkpoint.nextCheckpoint;
-					lastCheckpoint = colliderParent.transform.position;
-					lastCheckpointRotation = colliderParent.transform.rotation;
-				}else if (!colliderParent.name.StartsWith(""+playerNum)){
-					//Debug.Log (gameObject.name + " collided with " +colliderParent.name);
-					transform.position = lastCheckpoint;
-					transform.rotation = lastCheckpointRotation;
-					player3rdCamera.transform.position = transform.position - transform.forward;
-					return;
+					lastCheckpoint = transform.position;
+					lastCheckpointRotation = transform.rotation;
 				}
+			}else if (!colliderParent.name.StartsWith(""+playerNum)){
+				transform.position = lastCheckpoint;
+				transform.rotation = lastCheckpointRotation;
+				player3rdCamera.transform.position = transform.position - transform.forward;
+				return;
+			}
+		}
+		//"Light Scrape" checks
+		bool isScraping = false;
+		int otherPlayerNum = playerNum == 1 ? 2 : 1;
+		hitColliders = Physics.OverlapSphere(transform.position, 3);
+		for(int i = 0; i < hitColliders.Length; i++){
+			Collider curCollider = hitColliders[i];
+			GameObject colliderParent = curCollider.gameObject;
+			if (colliderParent.name.StartsWith(""+otherPlayerNum)){
+				boost += 5;
+				boost = Mathf.Min (100, boost);
+				Debug.Log ("Scraping!");
 			}
 		}
 		//Camera perspective switch
@@ -68,38 +95,15 @@ public class PlanePilot : MonoBehaviour {
 
 		//Plane Control
 		transform.Rotate(-5.0f*Input.GetAxis("Vertical"+playerNum),0.0f, -5.0f*Input.GetAxis("Horizontal"+playerNum));
-		if(Input.GetButton("Boost"+playerNum)){
-			speed = 10.0f;//20.0f;
-		}else{
-			speed = 20.0f;//10.0f;
+		if(!isScraping){
+			if(Input.GetButton("Boost"+playerNum) && boost > 0){
+				speed = 50.0f;//20.0f;
+				boost--;
+			}else{
+				speed = 30.0f;//10.0f;
+			}
 		}
 		transform.position+=transform.forward*Time.deltaTime*speed;
-
-//		//Add force from jet engine , set enginePower to 15000
-//		Rigidbody rb = this.GetComponent<Rigidbody>();
-//		if (Input.GetKey (KeyCode.Space)) {
-//			rb.AddForce (transform.forward);
-//		}
-//		
-//		//Add lift force ,  set liftBooster to 100 
-//		Vector3 lift = Vector3.Project (rb.velocity, transform.forward);
-//		rb.AddForce (transform.up * lift.magnitude);
-//		
-//		//Banking controls, turning turning left and right on Z axis
-//		rb.AddTorque (Input.GetAxis ("Horizontal2") * transform.forward * -1f);
-//		
-//		//Pitch controls, turning the nose up and down
-//		rb.AddTorque (Input.GetAxis ("Vertical2") * transform.right );
-//		
-//		//Set drag and angular drag according relative to speed
-//		rb.drag = 0.001f * rb.velocity.magnitude;
-//		rb.angularDrag = 0.01f * rb.velocity.magnitude;
-
-
-		float terrainHeightWhereWeAre = Terrain.activeTerrain.SampleHeight(transform.position);
-		if(terrainHeightWhereWeAre>transform.position.y){
-			transform.position = new Vector3(transform.position.x,terrainHeightWhereWeAre,transform.position.z);
-		}
 
 		//Ribbon Collider Generation
 		// TODO
