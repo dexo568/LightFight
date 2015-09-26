@@ -1,0 +1,99 @@
+CREATING A NEW PLANET:
+
+Within Unity3D Editor, press CTRL + N to start a new, empty scene.
+
+(1) Go to the menu
+
+		GameObject -> Create Other -> Ethereal Planet
+
+	to create a new Ethereal Planet. Your new Planet will have a default radius of 64 units, and no textures at all.
+
+	Notice that a warning appears in the Console, saying "Planet Ethereal Planet has no Sun. Please select a Light as the Sun for this Planet."
+
+	We need a light to act as the Sun light for the Planet.
+
+(2) Go to the menu
+
+		GameObject -> Create Other -> Point Light
+
+	to create a Sun light for your Planet.
+
+(3) In the Hierarchy Panel, click the Ethereal Planet to select it. In the Inspector, find the "Sun Transform" field, click it and select the Light as the Sun for this Planet.
+
+(4) Select the Point Light and move it above the Planet.
+
+(5) Select the Main Camera and move it so that you can see the entire Planet in the Camera Preview.
+
+--
+
+(6) In the Project Panel, find the zSample folder, open it, open the Scripts folder, and find the CCameraOrbit script. Drag this script to the Main Camera in the Hierarchy Panel.
+
+	This script has some basic flying controls to move the Camera through the space, like:
+
+	[W] accelerate;
+	[SHIFT] + [W] accelerate faster;
+
+	[S] reverse accelerate;
+	[SHIFT] + [S] reverse accelerate faster;
+
+	[MOUSE MOVE] rotate camera;
+	[A] or [D] + [MOUSE MOVE] rotate differently (roll locked);
+
+	[SPACE] speed decrease until stop;
+
+--
+
+(7) Select the Ethereal Planet again. In the Inspector, find the "Water Tex" field, click on it, and select the "water 512" texture included in the sample package.
+
+	You should now see a water in the Planet.
+
+(8) In the Inspector, find the "Water Normal" field, click on it, and select the "723-normal" texture included in the sample package.
+
+	The water is now normal-mapped.
+
+(9) In the Inspector, find the "Water Tex Tile" field, click on it, and change the value to 32.
+
+	The water is tiling 32 times now, giving it a more realistic scale relative to the Planet size.
+
+(10) In the Inspector, find the "Base Tex" field, click on it, and select the "forest 2" texture included in the sample package.
+
+	You should see the terrain with a grass texture.
+
+(11) Please save and run the scene now, and look around a bit.
+
+	You should see a basic planet with land and water.
+
+(12) Stop the scene.
+
+(13) Select the Ethereal Planet again, go to the Inspector, find the "Has Atmosphere" field, and enable it.
+
+(14) Save and run the scene again.
+
+	You should now see a bright horizon and a sky degradee around the Planet.
+
+	Lets add a sun Billboard to this scene.
+
+(15) Stop the scene again.
+
+(16) Go to the menu
+
+		GameObject -> Create Other -> Plane
+
+(17) In the Hierarchy Panel, drag the Plane over the Point Light object, to make it a child of the Sun. Make sure that the Plane is at coordinates 0,0,0 after dragging it.
+
+(18) Select the Plane and change its Scale in the Inspector to 5, 5, 5.
+
+	The Plane will look bigger in size.
+
+(19) In the Project Panel, within Resources -> zSample -> Materials, find the "Sun" Material, and drag it over the Plane in the Hierarchy Panel.
+
+	The Plane should now have a Sun Texture (the Sun Texture is included in the sample package).
+
+(20) In the folder zSample -> Scripts, drag the Billboard script over the Plane in the Hiearchy Panel.
+
+	Now the Plane will always look directly at the Main Camera, when the scene is running.
+
+(21) Please save and run the scene again.
+
+
+*** MORE GUIDES ARE COMING SOON! ***

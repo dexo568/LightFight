@@ -1,0 +1,32 @@
+
+BUGS / LACKING FEATURES:
+
+
+- GapFix is not perfect, in some places there are spikes over some terrain edges (not cracks, but spikes)
+
+- There are visible seams between some normalmaps edges
+
+- Add automatic instances of vegetation over close terrain patches
+
+- Vertices should have their origins local to the patch's center to prevent wobbling on huge planets
+
+- Finish CNoiseFactory
+
+- Finish Unity Indie version
+
+	* patch normals generation
+	* noise types
+
+- Adapt shaders to run under Mac and enable Pro features under Macintosh
+
+- Fix the surface shader for built-in lighting/shadows support
+
+- Add a fast collision detection that is independent of the PhysX
+
+- needs gizmo selection
+
+- needs to rebuild only the changed parameters
+
+- fix bugs running within editor, some nodes are not correctly deleted and we see flicking geometry running within the editor
+
+- global scale ratio to adjust sizes and help to integrate into already started projects
