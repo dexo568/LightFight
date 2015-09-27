@@ -8,6 +8,5 @@ function Start(){
 function Update() {
 var offsetX = Time.time * scrollSpeed_X;
 var offsetY = Time.time * scrollSpeed_Y + randomOffset;
-print(randomOffset);
 GetComponent.<Renderer>().material.mainTextureOffset = Vector2 (offsetX,offsetY);
 }

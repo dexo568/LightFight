@@ -131,6 +131,6 @@ public class PlanePilot : MonoBehaviour {
 		Rigidbody bullet = (Rigidbody) Instantiate(playerBullet, (transform.position+transform.forward*5), transform.rotation);
 		bullet.gameObject.name = playerNum+"Bullet";
 		bullet.gameObject.transform.GetChild(0).name = playerNum+"Bullet";
-		bullet.velocity = transform.forward*(speed+40.0f);
+		bullet.velocity = transform.forward*(speed+80.0f);
 	}
 }
