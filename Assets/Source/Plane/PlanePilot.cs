@@ -8,6 +8,9 @@ public class PlanePilot : MonoBehaviour {
 	public Camera player1stCamera;
 	public Indicator checkpointIndicator1stPerson;
 	public Rigidbody playerBullet;
+	public Rigidbody playerHomingBullet;
+	public GameObject otherPlane;
+	private int homingAmmo = 0;
 	public float speed = 30.0f;//10.0f;
 	private int boost = 100;
 	public Text boostGauge;
@@ -57,9 +60,7 @@ public class PlanePilot : MonoBehaviour {
 					lastCheckpointRotation = transform.rotation;
 				}
 			}else if (!colliderParent.name.StartsWith(""+playerNum)){
-				transform.position = lastCheckpoint;
-				transform.rotation = lastCheckpointRotation;
-				player3rdCamera.transform.position = transform.position - transform.forward;
+				explode();
 				return;
 			}
 		}
@@ -128,9 +129,24 @@ public class PlanePilot : MonoBehaviour {
 	
 	}
 	void fire() {
-		Rigidbody bullet = (Rigidbody) Instantiate(playerBullet, (transform.position+transform.forward*5), transform.rotation);
-		bullet.gameObject.name = playerNum+"Bullet";
-		bullet.gameObject.transform.GetChild(0).name = playerNum+"Bullet";
-		bullet.velocity = transform.forward*(speed+80.0f);
+		if(homingAmmo == 0){
+			Rigidbody bullet = (Rigidbody) Instantiate(playerBullet, (transform.position+transform.forward*5), transform.rotation);
+			bullet.gameObject.name = playerNum+"Bullet";
+			bullet.gameObject.transform.GetChild(0).name = playerNum+"Bullet";
+			bullet.velocity = transform.forward*(speed+80.0f);
+		}else{
+			Debug.Log("firing fancy bullet");
+			Rigidbody homingBullet = (Rigidbody) Instantiate(playerHomingBullet, (transform.position+transform.forward*5), transform.rotation);
+			HomingBullet hbScript = homingBullet.gameObject.GetComponent<HomingBullet>();
+			hbScript.trackedTarget = otherPlane;
+			homingBullet.gameObject.name = playerNum+"HomingBullet";
+			homingAmmo--;
+		}
+	}
+
+	public void explode(){
+		transform.position = lastCheckpoint;
+		transform.rotation = lastCheckpointRotation;
+		player3rdCamera.transform.position = transform.position - transform.forward;
 	}
 }
