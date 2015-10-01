@@ -13,7 +13,7 @@ public class PlanePilot : MonoBehaviour {
 	private int homingAmmo = 0;
 	public float speed = 30.0f;//10.0f;
 	private int boost = 100;
-	public Text boostGauge;
+	public BoostGauge boostGauge;
 	private Vector3 lastCheckpoint;
 	private Quaternion lastCheckpointRotation;
 	private bool isFirstPerson = true;
@@ -33,7 +33,8 @@ public class PlanePilot : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//Update booster
-		boostGauge.text = "Boost: " + boost + "%";
+		//boostGauge.text = "Boost: " + boost + "%";
+		boostGauge.updateBoostGauge(boost/100f);
 		if(boostCount > 10) {
 			boostCount = 0;
 			boost++;
