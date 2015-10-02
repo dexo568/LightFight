@@ -12,7 +12,7 @@ public class PlanePilot : MonoBehaviour {
 	public GameObject otherPlane;
 	private int homingAmmo = 0;
 	public float speed = 30.0f;
-	private int boost = 100;
+	private int boost = 109; //this goes up to 11 (that's a spinal tap reference, actually it goes up to 109)
 	public BoostGauge boostGauge;
 	public LapCounter lapCounter;
 	private Vector3 lastCheckpoint;
@@ -35,11 +35,11 @@ public class PlanePilot : MonoBehaviour {
 	void Update () {
 		//Update booster
 		//boostGauge.text = "Boost: " + boost + "%";
-		boostGauge.updateBoostGauge(boost/100f);
+		boostGauge.updateBoostGauge(boost);
 		if(boostCount > 10) {
 			boostCount = 0;
 			boost++;
-			boost = Mathf.Min(100, boost);
+			boost = Mathf.Min(109, boost);
 		}
 		boostCount++;
 		//Update Will's mysterious box code
