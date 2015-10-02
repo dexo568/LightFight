@@ -14,7 +14,8 @@ public class BoostGauge : MonoBehaviour {
 
 	}
 	public void updateBoostGauge(float curBoostPercent){
-		indicator.offsetMax = new Vector2(indicator.offsetMin.x+(curBoostPercent*16f),indicator.offsetMax.y);
+		//indicator.offsetMax = new Vector2(indicator.offsetMin.x+(curBoostPercent*16f),indicator.offsetMax.y);
+		indicator.sizeDelta = new Vector2(indicator.offsetMin.x+(curBoostPercent*16f),indicator.sizeDelta.y);
 		Debug.Log ("["+indicator.offsetMin.x+", "+indicator.offsetMax.x+"]");
 
 	}

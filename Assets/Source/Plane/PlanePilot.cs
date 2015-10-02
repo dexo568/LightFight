@@ -11,9 +11,10 @@ public class PlanePilot : MonoBehaviour {
 	public Rigidbody playerHomingBullet;
 	public GameObject otherPlane;
 	private int homingAmmo = 0;
-	public float speed = 30.0f;//10.0f;
+	public float speed = 30.0f;
 	private int boost = 100;
 	public BoostGauge boostGauge;
+	public LapCounter lapCounter;
 	private Vector3 lastCheckpoint;
 	private Quaternion lastCheckpointRotation;
 	private bool isFirstPerson = true;
@@ -59,6 +60,9 @@ public class PlanePilot : MonoBehaviour {
 					checkpointIndicator1stPerson.tracked = checkpoint.nextCheckpoint;
 					lastCheckpoint = transform.position;
 					lastCheckpointRotation = transform.rotation;
+					if(checkpoint.nextCheckpoint.GetComponent<CheckpointUpdater>().isStartingCheckpoint){
+						lapCounter.updateLaps();
+					}
 				}
 			}else if (!colliderParent.name.StartsWith(""+playerNum)){
 				explode();
