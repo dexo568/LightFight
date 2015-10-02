@@ -1,0 +1,317 @@
+fileFormatVersion: 2
+guid: fc32301548d55c145bd6cfb071d2bf0d
+timeCreated: 1443351410
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Cluster1
+    100002: Cluster1 1
+    100004: Cluster2
+    100006: Cluster2 1
+    100008: Cockpit
+    100010: Engine1
+    100012: Engine1 1
+    100014: Engine_Block
+    100016: Engine_Block 1
+    100018: Fuselage
+    100020: Gun
+    100022: Gun 1
+    100024: HardPoint
+    100026: HardPoint 1
+    100028: Left_Side
+    100030: LL
+    100032: LL 1
+    100034: LL 2
+    100036: LL 3
+    100038: Lower_Nose_Wing
+    100040: Lower_Nose_Wing 1
+    100042: Lower_Tail_Wing
+    100044: Lower_Tail_Wing 1
+    100046: LR
+    100048: LR 1
+    100050: LR 2
+    100052: LR 3
+    100054: Main_Wing
+    100056: Main_Wing 1
+    100058: Missile
+    100060: Missile 1
+    100062: Missile_Body
+    100064: Missile_Body 1
+    100066: Nose
+    100068: Nose_Wings
+    100070: Nose_Wings 1
+    100072: //RootNode
+    100074: Right_Side
+    100076: Tail_Wings
+    100078: Tail_Wings 1
+    100080: UL
+    100082: UL 1
+    100084: UL 2
+    100086: UL 3
+    100088: Upper_Nose_Wing
+    100090: Upper_Nose_Wing 1
+    100092: Upper_Tail_Wing
+    100094: Upper_Tail_Wing 1
+    100096: UR
+    100098: UR 1
+    100100: UR 2
+    100102: UR 3
+    100104: Warhead
+    100106: Warhead 1
+    100108: Weapon_Mount
+    100110: Weapon_Mount 1
+    100112: Wing_Set
+    100114: Wing_Set 1
+    400000: Cluster1
+    400002: Cluster1 1
+    400004: Cluster2
+    400006: Cluster2 1
+    400008: Cockpit
+    400010: Engine1
+    400012: Engine1 1
+    400014: Engine_Block
+    400016: Engine_Block 1
+    400018: Fuselage
+    400020: Gun
+    400022: Gun 1
+    400024: HardPoint
+    400026: HardPoint 1
+    400028: Left_Side
+    400030: LL
+    400032: LL 1
+    400034: LL 2
+    400036: LL 3
+    400038: Lower_Nose_Wing
+    400040: Lower_Nose_Wing 1
+    400042: Lower_Tail_Wing
+    400044: Lower_Tail_Wing 1
+    400046: LR
+    400048: LR 1
+    400050: LR 2
+    400052: LR 3
+    400054: Main_Wing
+    400056: Main_Wing 1
+    400058: Missile
+    400060: Missile 1
+    400062: Missile_Body
+    400064: Missile_Body 1
+    400066: Nose
+    400068: Nose_Wings
+    400070: Nose_Wings 1
+    400072: //RootNode
+    400074: Right_Side
+    400076: Tail_Wings
+    400078: Tail_Wings 1
+    400080: UL
+    400082: UL 1
+    400084: UL 2
+    400086: UL 3
+    400088: Upper_Nose_Wing
+    400090: Upper_Nose_Wing 1
+    400092: Upper_Tail_Wing
+    400094: Upper_Tail_Wing 1
+    400096: UR
+    400098: UR 1
+    400100: UR 2
+    400102: UR 3
+    400104: Warhead
+    400106: Warhead 1
+    400108: Weapon_Mount
+    400110: Weapon_Mount 1
+    400112: Wing_Set
+    400114: Wing_Set 1
+    2300000: Cluster1
+    2300002: Cluster1 1
+    2300004: Cluster2
+    2300006: Cluster2 1
+    2300008: Cockpit
+    2300010: Engine1
+    2300012: Engine1 1
+    2300014: Fuselage
+    2300016: Gun
+    2300018: Gun 1
+    2300020: HardPoint
+    2300022: HardPoint 1
+    2300024: LL
+    2300026: LL 1
+    2300028: LL 2
+    2300030: LL 3
+    2300032: Lower_Nose_Wing
+    2300034: Lower_Nose_Wing 1
+    2300036: Lower_Tail_Wing
+    2300038: Lower_Tail_Wing 1
+    2300040: LR
+    2300042: LR 1
+    2300044: LR 2
+    2300046: LR 3
+    2300048: Main_Wing
+    2300050: Main_Wing 1
+    2300052: Missile_Body
+    2300054: Missile_Body 1
+    2300056: Nose
+    2300058: UL
+    2300060: UL 1
+    2300062: UL 2
+    2300064: UL 3
+    2300066: Upper_Nose_Wing
+    2300068: Upper_Nose_Wing 1
+    2300070: Upper_Tail_Wing
+    2300072: Upper_Tail_Wing 1
+    2300074: UR
+    2300076: UR 1
+    2300078: UR 2
+    2300080: UR 3
+    2300082: Warhead
+    2300084: Warhead 1
+    2300086: Weapon_Mount
+    2300088: Weapon_Mount 1
+    3300000: Cluster1
+    3300002: Cluster1 1
+    3300004: Cluster2
+    3300006: Cluster2 1
+    3300008: Cockpit
+    3300010: Engine1
+    3300012: Engine1 1
+    3300014: Fuselage
+    3300016: Gun
+    3300018: Gun 1
+    3300020: HardPoint
+    3300022: HardPoint 1
+    3300024: LL
+    3300026: LL 1
+    3300028: LL 2
+    3300030: LL 3
+    3300032: Lower_Nose_Wing
+    3300034: Lower_Nose_Wing 1
+    3300036: Lower_Tail_Wing
+    3300038: Lower_Tail_Wing 1
+    3300040: LR
+    3300042: LR 1
+    3300044: LR 2
+    3300046: LR 3
+    3300048: Main_Wing
+    3300050: Main_Wing 1
+    3300052: Missile_Body
+    3300054: Missile_Body 1
+    3300056: Nose
+    3300058: UL
+    3300060: UL 1
+    3300062: UL 2
+    3300064: UL 3
+    3300066: Upper_Nose_Wing
+    3300068: Upper_Nose_Wing 1
+    3300070: Upper_Tail_Wing
+    3300072: Upper_Tail_Wing 1
+    3300074: UR
+    3300076: UR 1
+    3300078: UR 2
+    3300080: UR 3
+    3300082: Warhead
+    3300084: Warhead 1
+    3300086: Weapon_Mount
+    3300088: Weapon_Mount 1
+    4300000: Gun
+    4300002: Lower_Tail_Wing
+    4300004: Main_Wing
+    4300006: Upper_Tail_Wing
+    4300008: Upper_Nose_Wing
+    4300010: Lower_Nose_Wing
+    4300012: Engine1
+    4300014: Cluster2
+    4300016: Cluster1
+    4300018: UR
+    4300020: UL
+    4300022: LR
+    4300024: LL
+    4300026: UR
+    4300028: UL
+    4300030: LR
+    4300032: LL
+    4300034: Missile_Body
+    4300036: Warhead
+    4300038: HardPoint
+    4300040: Weapon_Mount
+    4300042: Fuselage
+    4300044: Nose
+    4300046: Gun
+    4300048: Lower_Tail_Wing
+    4300050: Main_Wing
+    4300052: Upper_Tail_Wing
+    4300054: Upper_Nose_Wing
+    4300056: Lower_Nose_Wing
+    4300058: Engine1
+    4300060: Cluster2
+    4300062: Cluster1
+    4300064: UR
+    4300066: UL
+    4300068: LR
+    4300070: LL
+    4300072: UR
+    4300074: UL
+    4300076: LR
+    4300078: LL
+    4300080: Missile_Body
+    4300082: Warhead
+    4300084: HardPoint
+    4300086: Weapon_Mount
+    4300088: Cockpit
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
