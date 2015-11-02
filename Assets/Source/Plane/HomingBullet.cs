@@ -10,13 +10,13 @@ public class HomingBullet : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.LookAt(trackedTarget.transform.position+trackedTarget.transform.forward*1.0f);
-		Rigidbody rb = GetComponent<Rigidbody>();
-		rb.velocity = transform.forward*80.0f;
+//		transform.LookAt(trackedTarget.transform.position+trackedTarget.transform.forward*1.0f);
+//		Rigidbody rb = GetComponent<Rigidbody>();
+//		rb.velocity = transform.forward*80.0f;
 	}
 	void OnCollisionEnter(Collision c){
-		PlanePilot pp = c.gameObject.GetComponent<PlanePilot>();
-		pp.explode();
-		Destroy(gameObject);
+//		PlanePilot pp = c.gameObject.GetComponent<PlanePilot>();
+//		pp.explode();
+//		Destroy(gameObject);
 	}
 }

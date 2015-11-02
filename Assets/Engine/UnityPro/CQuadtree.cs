@@ -222,7 +222,7 @@ public class CQuadtree
 				GameObject.DestroyImmediate(m_GameObj);
 				RenderTexture.DestroyImmediate(m_NormalMapRT);
 			#else
-				Material.Destroy(m_GameObj.renderer.sharedMaterial);
+				Material.Destroy(m_GameObj.GetComponent<Renderer>().sharedMaterial);
 				Mesh.Destroy(m_Mesh);
 				GameObject.Destroy(m_GameObj);
 				RenderTexture.Destroy(m_NormalMapRT);
