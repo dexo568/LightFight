@@ -12,7 +12,7 @@ public class PlanePilot : MonoBehaviour {
 	public GameObject otherPlane;
 	private int homingAmmo = 0;
 	public float speed = 30.0f;
-	private int boost = 109; //this goes up to 11 (that's a spinal tap reference, actually it goes up to 109)
+	private double boost = 109; //this goes up to 11 (that's a spinal tap reference, actually it goes up to 109)
 	public BoostGauge boostGauge;
 	public LapCounter lapCounter;
 	private Vector3 lastCheckpoint;
@@ -20,6 +20,12 @@ public class PlanePilot : MonoBehaviour {
 	private bool isFirstPerson = true;
 	private int boxCount = 0;
 	private int boostCount = 0;
+	public ParticleSystem juiceEffect;
+	private int deadTimer = 0;
+	public GameObject planeBody;
+	public ParticleSystem deathParticles;
+	public Text winText;
+	private bool gameOver = false;
 	// Use this for initialization
 	void Start () {
 		player1stCamera.enabled=true;
@@ -28,18 +34,32 @@ public class PlanePilot : MonoBehaviour {
 		lastCheckpoint = transform.position;
 		lastCheckpointRotation = transform.rotation;
 		player3rdCamera.transform.position = transform.position - transform.forward;
+		winText.text = "";
 		//Debug.Log("PlanePilot script added to " + gameObject.name);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(gameOver){
+			return;
+		}
+		if(deadTimer != 0){
+			deadTimer++;
+			if(deadTimer >= 50){
+				reset();
+				deadTimer = 0;
+			}else{
+				return;
+			}
+		}
+		juiceEffect.emissionRate = speed;
 		//Update booster
 		//boostGauge.text = "Boost: " + boost + "%";
-		boostGauge.updateBoostGauge(boost);
+		boostGauge.updateBoostGauge((int)speed);
 		if(boostCount > 10) {
 			boostCount = 0;
 			boost++;
-			boost = Mathf.Min(109, boost);
+			boost = Mathf.Min(109f, (float)boost);
 		}
 		boostCount++;
 		//Update Will's mysterious box code
@@ -53,15 +73,17 @@ public class PlanePilot : MonoBehaviour {
 			GameObject colliderParent = curCollider.gameObject;
 			if (colliderParent.name.StartsWith("Checkpoint")){
 				if(colliderParent.layer == playerNum+10){ //Checks that the checkpoint is this player's checkpoint -- eg. p1 has checkpoints in layer 11
-					boost+=10;
-					boost = Mathf.Min(100, boost);
+					boost+=5;
+					boost = Mathf.Min(109, (float)boost);
 					CheckpointUpdater checkpoint = colliderParent.GetComponent<CheckpointUpdater>();
 					checkpoint.advanceCheckpoint();
 					checkpointIndicator1stPerson.tracked = checkpoint.nextCheckpoint;
 					lastCheckpoint = transform.position;
 					lastCheckpointRotation = transform.rotation;
 					if(checkpoint.nextCheckpoint.GetComponent<CheckpointUpdater>().isStartingCheckpoint){
-						lapCounter.updateLaps();
+						if(lapCounter.updateLaps()){
+							win();
+						}
 					}
 				}
 			}else if (!colliderParent.name.StartsWith(""+playerNum)){
@@ -78,7 +100,7 @@ public class PlanePilot : MonoBehaviour {
 			GameObject colliderParent = curCollider.gameObject;
 			if (colliderParent.name.StartsWith(""+otherPlayerNum)){
 				boost += 5;
-				boost = Mathf.Min (100, boost);
+				boost = Mathf.Min (109f, (float)boost);
 				Debug.Log ("Scraping!");
 			}
 		}
@@ -103,10 +125,12 @@ public class PlanePilot : MonoBehaviour {
 		transform.Rotate(-5.0f*Input.GetAxis("Vertical"+playerNum),0.0f, -5.0f*Input.GetAxis("Horizontal"+playerNum));
 		if(!isScraping){
 			if(Input.GetButton("Boost"+playerNum) && boost > 0){
-				speed = 50.0f;//20.0f;
-				boost--;
+				speed++;//20.0f;
+				speed = Mathf.Min((float)speed, 120f);
+				//boost-=.5f;
 			}else{
-				speed = 30.0f;//10.0f;
+				speed--;//10.0f;
+				speed = Mathf.Max((float)speed, 30f);
 			}
 		}
 		transform.position+=transform.forward*Time.deltaTime*speed;
@@ -150,8 +174,38 @@ public class PlanePilot : MonoBehaviour {
 	}
 
 	public void explode(){
+		speed = 0;
+		deadTimer = 1;
+		MeshRenderer[] childRenderers = planeBody.GetComponentsInChildren<MeshRenderer>();
+		deathParticles.Play();
+		foreach(MeshRenderer ren in childRenderers){
+			ren.enabled = false;
+		}
+		player1stCamera.enabled=false;
+		player3rdCamera.enabled=true;
+	}
+
+	public void reset(){
+
+		speed = 30f;
 		transform.position = lastCheckpoint;
 		transform.rotation = lastCheckpointRotation;
+		MeshRenderer[] childRenderers = planeBody.GetComponentsInChildren<MeshRenderer>();
+		foreach(MeshRenderer ren in childRenderers){
+			ren.enabled = true;
+		}
+		player1stCamera.enabled=true;
+		player3rdCamera.enabled=false;
 		player3rdCamera.transform.position = transform.position - transform.forward;
+	}
+
+	public void win(){
+		winText.text = "VICTORY";
+		otherPlane.GetComponent<PlanePilot>().lose();
+		gameOver = true;
+	}
+	public void lose(){
+		winText.text = "DEFEAT";
+		gameOver = true;
 	}
 }

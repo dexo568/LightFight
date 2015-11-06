@@ -1,0 +1,123 @@
+fileFormatVersion: 2
+guid: 5680ba9975d3e4a38b016012ce153316
+timeCreated: 1446606704
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: dorsal_Fin
+    100002: group
+    100004: group1
+    100006: group2
+    100008: Left_Flipper
+    100010: Left_Tail_Fin
+    100012: Nose
+    100014: pasted__Left_Flipper
+    100016: pasted__Left_Tail_Fin
+    100018: pasted__pasted__Left_Flipper
+    100020: pCylinder1
+    100022: Right_Flipper1
+    100024: //RootNode
+    400000: dorsal_Fin
+    400002: group
+    400004: group1
+    400006: group2
+    400008: Left_Flipper
+    400010: Left_Tail_Fin
+    400012: Nose
+    400014: pasted__Left_Flipper
+    400016: pasted__Left_Tail_Fin
+    400018: pasted__pasted__Left_Flipper
+    400020: pCylinder1
+    400022: Right_Flipper1
+    400024: //RootNode
+    2300000: dorsal_Fin
+    2300002: Left_Flipper
+    2300004: Left_Tail_Fin
+    2300006: Nose
+    2300008: pasted__Left_Flipper
+    2300010: pasted__Left_Tail_Fin
+    2300012: pasted__pasted__Left_Flipper
+    2300014: pCylinder1
+    2300016: Right_Flipper1
+    3300000: dorsal_Fin
+    3300002: Left_Flipper
+    3300004: Left_Tail_Fin
+    3300006: Nose
+    3300008: pasted__Left_Flipper
+    3300010: pasted__Left_Tail_Fin
+    3300012: pasted__pasted__Left_Flipper
+    3300014: pCylinder1
+    3300016: Right_Flipper1
+    4300000: pCylinder1
+    4300002: Nose
+    4300004: Left_Flipper
+    4300006: Right_Flipper1
+    4300008: dorsal_Fin
+    4300010: Left_Tail_Fin
+    4300012: pasted__Left_Tail_Fin
+    4300014: pasted__Left_Flipper
+    4300016: pasted__pasted__Left_Flipper
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
