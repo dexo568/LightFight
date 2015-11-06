@@ -28,7 +28,7 @@ public class Indicator : MonoBehaviour {
 		float indicatorY 		= Mathf.Abs(indicator.rect.y); // rect.y returns negative, so correct it
 		float screenX, screenY;
 
-		// Camera to screen coordinates
+		// Camera to screen coordinates`
 		float cameraXMax 			   = reference.rect.xMax;  // Percentage of screen?? FIXME
 		float cameraXMin 			   = reference.rect.xMin;	
 		float cameraXMinInScreenPixels = (cameraXMin * Screen.width) - (Screen.width * HALF);

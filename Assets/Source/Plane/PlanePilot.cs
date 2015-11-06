@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class PlanePilot : MonoBehaviour {
+public class PlanePilot : NetworkBehaviour {
 	public int playerNum;
 	public Camera player3rdCamera;
 	public Camera player1stCamera;
@@ -29,12 +30,12 @@ public class PlanePilot : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player1stCamera.enabled=true;
-		player3rdCamera.enabled=false;
+		//player3rdCamera.enabled=false;
 		Screen.lockCursor = true;
 		lastCheckpoint = transform.position;
 		lastCheckpointRotation = transform.rotation;
-		player3rdCamera.transform.position = transform.position - transform.forward;
 		winText.text = "";
+		//player3rdCamera.transform.position = transform.position - transform.forward;
 		//Debug.Log("PlanePilot script added to " + gameObject.name);
 	}
 	
@@ -56,6 +57,15 @@ public class PlanePilot : MonoBehaviour {
 		//Update booster
 		//boostGauge.text = "Boost: " + boost + "%";
 		boostGauge.updateBoostGauge((int)speed);
+		if (!isLocalPlayer)
+		{
+			// exit from update if this is not the local player
+			return;
+		}
+
+		//Update booster
+		//boostGauge.text = "Boost: " + boost + "%";
+		//boostGauge.updateBoostGauge(boost);
 		if(boostCount > 10) {
 			boostCount = 0;
 			boost++;
@@ -108,18 +118,18 @@ public class PlanePilot : MonoBehaviour {
 		if(Input.GetButtonDown("CamSwitch"+playerNum)){
 			if(isFirstPerson){
 				player1stCamera.enabled=false;
-				player3rdCamera.enabled=true;
+				//player3rdCamera.enabled=true;
 			}else{
 				player1stCamera.enabled=true;
-				player3rdCamera.enabled=false;
+				//player3rdCamera.enabled=false;
 			}
 			isFirstPerson=!isFirstPerson;
 		}
 		//3rd person camera movement
 		Vector3 moveCamTo = transform.position - transform.forward*10.0f + Vector3.up*5.0f;
 		float bias=0.5f; // How quickly the camera moves positions, higher = slower
-		player3rdCamera.transform.position = player3rdCamera.transform.position * bias + moveCamTo*(1.0f-bias);
-		player3rdCamera.transform.LookAt(transform.position+transform.forward*30.0f);
+		//player3rdCamera.transform.position = player3rdCamera.transform.position * bias + moveCamTo*(1.0f-bias);
+		//player3rdCamera.transform.LookAt(transform.position+transform.forward*30.0f);
 
 		//Plane Control
 		transform.Rotate(-5.0f*Input.GetAxis("Vertical"+playerNum),0.0f, -5.0f*Input.GetAxis("Horizontal"+playerNum));
@@ -152,24 +162,33 @@ public class PlanePilot : MonoBehaviour {
 
 
 		if (Input.GetButtonDown("Fire"+playerNum)){
-				fire();
+			CmdFire();
 		}
 		boxCount += 1;
 	
 	}
-	void fire() {
+
+	[Command]
+	void CmdFire() {
 		if(homingAmmo == 0){
 			Rigidbody bullet = (Rigidbody) Instantiate(playerBullet, (transform.position+transform.forward*5), transform.rotation);
 			bullet.gameObject.name = playerNum+"Bullet";
 			bullet.gameObject.transform.GetChild(0).name = playerNum+"Bullet";
 			bullet.velocity = transform.forward*(speed+80.0f);
+
+			GameObject bullet_go = new GameObject("Bullet");
+			bullet = bullet_go.AddComponent<Rigidbody>();
+			NetworkServer.Spawn(bullet_go);
 		}else{
-			Debug.Log("firing fancy bullet");
 			Rigidbody homingBullet = (Rigidbody) Instantiate(playerHomingBullet, (transform.position+transform.forward*5), transform.rotation);
 			HomingBullet hbScript = homingBullet.gameObject.GetComponent<HomingBullet>();
 			hbScript.trackedTarget = otherPlane;
 			homingBullet.gameObject.name = playerNum+"HomingBullet";
 			homingAmmo--;
+
+			GameObject bullet_go = new GameObject("Homing Bullet");
+			homingBullet = bullet_go.AddComponent<Rigidbody>();
+			NetworkServer.Spawn(bullet_go);
 		}
 	}
 
@@ -196,7 +215,7 @@ public class PlanePilot : MonoBehaviour {
 		}
 		player1stCamera.enabled=true;
 		player3rdCamera.enabled=false;
-		player3rdCamera.transform.position = transform.position - transform.forward;
+		//player3rdCamera.transform.position = transform.position - transform.forward;
 	}
 
 	public void win(){

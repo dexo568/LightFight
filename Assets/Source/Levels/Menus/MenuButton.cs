@@ -10,7 +10,7 @@ public class MenuButton : MonoBehaviour {
 	}
 
 	public void BeginNetworkGame() {
-		Application.LoadLevel("OnlineLobbyScene");
+		Application.LoadLevel("network-canyonracescene");
 	}
 
 }
